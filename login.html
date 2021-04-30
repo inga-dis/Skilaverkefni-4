@@ -3,54 +3,22 @@
 
 <head>
   <title>4Chat</title>
-  <style>
-    body {
-      background-color: #FFCB86;
-    }
-
-    h1 {
-      text-align: center;
-    }
-
-    input,
-    label {
-      margin: 10px 10px 10px 0;
-      position: relative;
-      left: 45vw;
-      display: block;
-    }
-
-    form label {
-      display: inline-block;
-    }
-
-    p {
-      width: 25vw;
-      position: absolute;
-      left: 38vw;
-      text-align: center;
-      border: 5px outset #86463d;
-      background-color: wheat;
-    }
-
-    span {
-      color: #86463d;
-    }
-  </style>
+  <meta charset="utf-8">
+	<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <form method="post" action="/">
+  <form class="login" method="post" action="/">
     <h1>4Chat Login</h1>
-    <label for="nafn">Notandanafn:</label>
-    <input type="text" name="name" placeholder="Username" autocomplete="off" id="nafn">
-    <label for="pass">Lykilorð:</label>
-    <input type="text" name="password" placeholder="Password" autocomplete="off" id="pass" />
-    <input type="submit" value="Enter" />
+    <label class="login" for="nafn">Notandanafn:</label>
+    <input class="login" type="text" name="name" placeholder="Username" autocomplete="off" id="nafn">
+    <label class="login" for="pass">Lykilorð:</label>
+    <input class="login"type="text" name="password" placeholder="Password" autocomplete="off" id="pass" />
+    <input class="login" type="submit" value="Enter" />
   </form>
 
-  <p>Þessi chatserver fékk innblástur frá síðunni 4chan, þessvegna er notað 'be me' til að kynna nýja notendur og
-    PepeBot tekur vel á móti öllum með rétt lykilorð!(12345) <br> <span>4Chat er byggt ofan á grunn frá Sveini.</span>
+  <p class="login">Þessi chatserver fékk innblástur frá síðunni 4chan, þessvegna er notað 'be me' til að kynna nýja notendur og
+    PepeBot tekur vel á móti öllum með rétt lykilorð!(12345) <br> <span class="login">4Chat er byggt ofan á grunn frá Sveini.</span>
   </p>
 </body>
 

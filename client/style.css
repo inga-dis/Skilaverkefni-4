@@ -159,3 +159,34 @@ body {
   #filter:focus {
     outline: none;
   }
+  h1 {
+    text-align: center;
+  }
+  /*  Aðgangur óheimill */
+  a {
+    text-align: center;
+  }
+
+/* Login */
+input.login,
+label.login {
+  margin: 10px 10px 10px 0;
+  position: relative;
+  left: 45vw;
+  display: block;
+}
+
+form.login label {
+  display: inline-block;
+}
+p.login {
+  width: 25vw;
+  position: absolute;
+  left: 38vw;
+  text-align: center;
+  border: 5px outset #86463d;
+  background-color: wheat;
+}
+span.login {
+  color: #86463d;
+}
