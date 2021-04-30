@@ -117,18 +117,16 @@
 
     // ===================== HVAÐ GERIST Á MESSAGE ========================
     socket.on('chat message', function (time, user, msg) {
-      newMessage = swearFilter(msg);
       if (filterUser) {
-        console.log('filter');
         if (user == filterUser || user == userName) {
           let item = document.createElement('li');
-          item.innerHTML = `${time} ${user} >${newMessage}`;
+          item.innerHTML = `${time} ${user} >${msg}`;
           messages.appendChild(item);
           window.scrollTo(0, document.body.scrollHeight);
         }
       } else {
         let item = document.createElement('li');
-        item.innerHTML = `${time} ${user} >${newMessage}`;
+        item.innerHTML = `${time} ${user} >${msg}`;
         messages.appendChild(item);
         window.scrollTo(0, document.body.scrollHeight);
       }

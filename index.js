@@ -10,6 +10,7 @@ const connectedUsers = []; // innskráðir notendur
 const typingUsers = []; //tekur við skrifandi notendum
 let name; // nafn tekið frá login síðu
 const pepe = '&#128056 PepeBot' // love
+const swearWords = ['fokk', 'shit', 'fuck', 'fucking', 'shitting', 'fokking', 'helvítis', 'djöfulsins', 'helvitis', 'andskotans', 'fjandans', 'djöfull', 'djofull', 'djofulsins', 'fu', 'stfu', 'fck', 'fk'];
 
 
 // þurfum body parser fyrir meðhöndlun POST beiðna
@@ -39,6 +40,22 @@ function time() {
 	let minutes = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
 	let hours = (date.getHours() < 10 ? '0' : '') + date.getHours();
 	return `[${hours}:${minutes}]`
+}
+
+function swearFilter(msg) {
+	let arrayMsg = msg.split(' ');
+	for (let i = 0; i < arrayMsg.length; i++) {
+		for (let k = 0; k < swearWords.length; k++) {
+			if (arrayMsg[i].toLowerCase() == swearWords[k]) {
+				arrayMsg[i] = '*****';
+			}
+		}
+	}
+	let returnString = '';
+	for (let j = 0; j < arrayMsg.length; j++) {
+		returnString += arrayMsg[j] + ' ';
+	}
+	return returnString;
 }
 
 mongo.connect('mongodb://127.0.0.1/4chat', { useUnifiedTopology: true }, (err, db) => {
@@ -82,7 +99,7 @@ mongo.connect('mongodb://127.0.0.1/4chat', { useUnifiedTopology: true }, (err, d
 				}
 				connectedUsers.push(socket.userName);
 				io.emit('loggedUsersChange', connectedUsers);
-				socket.emit('chat message', time(), pepe, "Looks like" + name + "was taken! I've named you " + socket.userName + " instead! sorry not sorry!");
+				socket.emit('chat message', time(), pepe, "that name was taken! I've made you a new one");
 			}
 		}
 
@@ -120,10 +137,10 @@ mongo.connect('mongodb://127.0.0.1/4chat', { useUnifiedTopology: true }, (err, d
 
 		// þegar skilaboð eru send
 		socket.on('chat message', (msg) => {
-
+			let newMsg = swearFilter(msg);
 			// sendir til allra nafn og skilaboð
-			chatdb.collection('message_history').insertOne({ user: socket.userName, message: msg, time: time() });
-			socket.broadcast.emit('chat message', time(), socket.userName, msg);
+			chatdb.collection('message_history').insertOne({ user: socket.userName, message: newMsg, time: time() });
+			socket.broadcast.emit('chat message', time(), socket.userName, newMsg);
 			// finnur notanda sem sendi skilaboð og tekur hann úr typing array
 			let x = typingUsers.indexOf(socket.userName);
 			typingUsers.splice(x, 1);
