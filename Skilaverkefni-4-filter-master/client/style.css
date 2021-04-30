@@ -1,0 +1,161 @@
+body {
+    margin: 0;
+    padding-bottom: 3rem;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #FFCB86;
+  }
+
+  #filter-form {
+    background: rgba(0, 0, 0, 0.15);
+    padding: 0.25rem;
+    padding-right: 0.8rem;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    height: 3rem;
+    box-sizing: border-box;
+    backdrop-filter: blur(10px);
+    float: left;
+    width: 40%;
+  }
+
+  #form {
+    background: rgba(0, 0, 0, 0.15);
+    padding: 0.25rem;
+    padding-right: 0.8rem;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    height: 3rem;
+    box-sizing: border-box;
+    backdrop-filter: blur(10px);
+    width: 60%;
+    float: right;
+  }
+  
+  #type {
+    background: rgba(0, 0, 0, 0.15);
+    padding: 0.25rem;
+    padding-right: 0.8rem;
+    position: fixed;
+    bottom: 3rem;
+    right: 0;
+    display: flex;
+    height: 1rem;
+    box-sizing: border-box;
+    backdrop-filter: blur(10px);
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  h6 {
+    position: relative;
+    margin: 0;
+    left: 2vw;
+  }
+
+  #input, #filter {
+    border: none;
+    padding: 0 1rem;
+    flex-grow: 1;
+    border-radius: 2rem;
+    margin: 0.25rem;
+  }
+
+  #input:focus {
+    outline: none;
+  }
+
+  #form>button, #filter-form>button {
+    background: #86463d;
+    border: none;
+    padding: 0 1rem;
+    margin: 0.25rem;
+    border-radius: 3px;
+    outline: none;
+    color: #fff;
+  }
+
+  #messages {
+    transform: translate(28vw);
+    list-style-type: none;
+    padding: 0;
+    width: 70vw;
+    font-weight: 500;
+  }
+
+  #messages>li {
+    padding: 0.5rem 1rem;
+    color: rgb(120, 153, 34);
+    background-color: #86463d;
+    border-radius: 20px;
+  }
+
+  #messages>li:nth-child(odd) {
+    background: wheat;
+  }
+
+  #users {
+      position: fixed;
+      height: fit-content;
+      left: 4vw;
+      top: 26vh;
+      width: 15vw;
+      margin: 10px;
+      background-color: wheat;
+      /* background: #efefef; */
+      border-radius: 10px;
+      color: #86463d;
+  }
+
+  #users li {
+    margin: 10px;
+    list-style: none; /* Remove default bullets */
+    font-weight: 700;
+  }
+  
+  #users li::before {
+    content: "\2022";  /* Add content: \2022 is the CSS Code/unicode for a bullet */
+    color: green; /* Change the color */
+    font-weight: bold; /* If you want it to be bold */
+    display: inline-block; /* Needed to add space between the bullet and the text */
+    width: 1em; /* Also needed for space (tweak if needed) */
+    margin-left: -1em; /* Also needed for space (tweak if needed) */
+  }
+
+  img {
+      margin: 0;
+      padding: 0;
+      position: fixed;
+      top: -10px;
+      left: 1vw;
+      width: 25vw;
+      height: 30vh;
+  }
+
+  #isTyping {
+      position: relative;
+      margin-right: 30vw;
+  }
+
+  #emojis {
+    margin: 8px;
+    transform: scale(2);
+  }
+
+  #emojis:hover {
+      cursor: pointer;
+  }
+
+  #filter {
+    border: none;
+    padding: 0 1rem;
+    flex-grow: .25;
+    margin: 0.25rem;
+  }
+
+  #filter:focus {
+    outline: none;
+  }
