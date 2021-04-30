@@ -2,27 +2,28 @@ body {
     margin: 0;
     padding-bottom: 3rem;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background-color: #FFCB86;
+    background-color: #EDEBE9;
   }
 
   #filter-form {
     background: rgba(0, 0, 0, 0.15);
-    padding: 0.25rem;
-    padding-right: 0.8rem;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
     position: fixed;
     bottom: 0;
     left: 0;
     display: flex;
     height: 3rem;
     box-sizing: border-box;
-    backdrop-filter: blur(10px);
     float: left;
-    width: 40%;
+    width: 30%;
+    
   }
 
   #form {
     background: rgba(0, 0, 0, 0.15);
-    padding: 0.25rem;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
     padding-right: 0.8rem;
     position: fixed;
     bottom: 0;
@@ -30,9 +31,8 @@ body {
     display: flex;
     height: 3rem;
     box-sizing: border-box;
-    backdrop-filter: blur(10px);
-    width: 60%;
-    float: right;
+    width: 70%;
+    float: left;
   }
   
   #type {
@@ -69,7 +69,7 @@ body {
   }
 
   #form>button, #filter-form>button {
-    background: #86463d;
+    background: #1F322B;
     border: none;
     padding: 0 1rem;
     margin: 0.25rem;
@@ -88,13 +88,13 @@ body {
 
   #messages>li {
     padding: 0.5rem 1rem;
-    color: rgb(120, 153, 34);
-    background-color: #86463d;
-    border-radius: 20px;
+    color: rgb(31, 50, 43);
+    background-color: #82B09E;
+    border-radius: 3px;
   }
 
   #messages>li:nth-child(odd) {
-    background: wheat;
+    background: #498373;
   }
 
   #users {
@@ -104,10 +104,12 @@ body {
       top: 26vh;
       width: 15vw;
       margin: 10px;
-      background-color: wheat;
+      background-color: #82B09E;
+      box-shadow: 0 0 2px 2px #82B09E;
       /* background: #efefef; */
-      border-radius: 10px;
-      color: #86463d;
+      border-radius: 5px;
+      
+      color: #1F322B;
   }
 
   #users li {
@@ -159,11 +161,11 @@ body {
   #filter:focus {
     outline: none;
   }
-  h1 {
+  h1.oheimill {
     text-align: center;
   }
   /*  Aðgangur óheimill */
-  a {
+  a.oheimill {
     text-align: center;
   }
 
@@ -175,7 +177,9 @@ label.login {
   left: 45vw;
   display: block;
 }
-
+h1.login {
+  text-align: center;
+}
 form.login label {
   display: inline-block;
 }
@@ -184,9 +188,13 @@ p.login {
   position: absolute;
   left: 38vw;
   text-align: center;
-  border: 5px outset #86463d;
-  background-color: wheat;
+  padding: 10px;
+  background-color: #82B09E;
+  box-shadow: 0 0 2px 2px #82B09E;
+  border-radius: 5px;
+  color: #1F322B;
 }
 span.login {
-  color: #86463d;
+  color: #1F322B;
+  font-weight: bold;
 }
