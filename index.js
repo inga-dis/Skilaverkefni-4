@@ -123,7 +123,7 @@ mongo.connect('mongodb://127.0.0.1/4chat', { useUnifiedTopology: true }, (err, d
 
 			// sendir til allra nafn og skilaboð
 			chatdb.collection('message_history').insertOne({ user: socket.userName, message: msg, time: time() });
-			io.emit('chat message', time(), socket.userName, msg);
+			socket.broadcast.emit('chat message', time(), socket.userName, msg);
 			// finnur notanda sem sendi skilaboð og tekur hann úr typing array
 			let x = typingUsers.indexOf(socket.userName);
 			typingUsers.splice(x, 1);
