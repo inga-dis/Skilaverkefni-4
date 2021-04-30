@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>4Chat</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <img src="chatImg.png" alt="">
+  <ul id="users"></ul>
+  <ul id="messages"></ul>
+
+  <div id="forms">
+    <form id="form" action="">
+      <input id="input" autocomplete="off" /><button>Send</button>
+      <div id="emojis">&#128512</div>
+    </form>
+    <form action="" id="filter-form">
+      <input type="text" name="filter" id="filter" placeholder="Sía skilaboð eftir notandanafni..." autocomplete="off">
+      <button>Filter</button>
+    </form>
+  </div>
+
+  <div id="type">
+    <h6>Til að slökkva á filter : síaðu með tómt box.</h6>
+    <h6 id="isTyping"></h6>
+  </div>
+
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+    // ======================== DOM ============================
+    const messages = document.getElementById('messages');
+    const form = document.getElementById('form');
+    const input = document.getElementById('input');
+    const users = document.getElementById('users');
+    const isTyping = document.getElementById('isTyping');
+    const emoji = document.getElementById('emojis');
+    const filter = document.getElementById('filter');
+    const filterForm = document.getElementById('filter-form');
+    let filterUser;
+    const swearWords = ['fokk', 'shit', 'fuck', 'fucking', 'shitting', 'fokking', 'helvítis', 'djöfulsins', 'helvitis', 'andskotans', 'fjandans', 'djöfull', 'djofull', 'djofulsins', 'fu', 'stfu', 'fck', 'fk'];
+    let userName;
+
+    function swearFilter(msg) {
+      let arrayMsg = msg.split(' ');
+      for (let i = 0; i < arrayMsg.length; i++) {
+        for (let k = 0; k < swearWords.length; k++) {
+          if (arrayMsg[i].toLowerCase() == swearWords[k]) {
+            arrayMsg[i] = '*****';
+          }
+        }
+      }
+      let returnString = '';
+      for (let j = 0; j < arrayMsg.length; j++) {
+        returnString += arrayMsg[j] + ' ';
+      }
+      return returnString;
+    }
+
+
+    // ================== EMOJI ==================================
+    emoji.addEventListener('click', () => {
+      socket.emit('chat message', '&#128512');
+    })
+
+    // ======================== MESSAGE SENDING ============================
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (input.value) {
+        socket.emit('chat message', input.value);
+        input.value = '';
+      }
+    });
+
+    filterForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      socket.emit('filtering', filter.value);
+      filterUser = filter.value;
+      filter.value = '';
+    })
+
+    // =================== TYPING ===================================
+    input.addEventListener('input', () => {
+      socket.emit('typing', input.value);
+    });
+
+    socket.on('message-history', (array) => {
+      messages.innerHTML = '';
+      for (let i = 0; i < array.length; i++) {
+        let item = document.createElement('li');
+        item.style.opacity = 0.7;
+        item.innerHTML = `${array[i].time} ${array[i].user} >${array[i].message}`;
+        messages.append(item);
+      }
+      window.scrollTo(0, document.body.scrollHeight);
+    });
+
+    // ===================== HVAÐ GERIST Á MESSAGE ========================
+    socket.on('chat message', function (time, user, msg) {
+      newMessage = swearFilter(msg);
+      if (filterUser) {
+        console.log('filter');
+        if (user == filterUser || user == userName) {
+          let item = document.createElement('li');
+          item.innerHTML = `${time} ${user} >${newMessage}`;
+          messages.appendChild(item);
+          window.scrollTo(0, document.body.scrollHeight);
+        }
+      } else {
+        let item = document.createElement('li');
+        item.innerHTML = `${time} ${user} >${newMessage}`;
+        messages.appendChild(item);
+        window.scrollTo(0, document.body.scrollHeight);
+      }
+    });
+
+    // ===================== INNSKRÁÐIR NOTENDUR ============================
+    socket.on('loggedUsersChange', (array) => {
+      // alltaf með titilinn á listanum, hreinsar gamla lista
+      users.innerHTML = '<h4>Innskráðir Notendur</h4>';
+      // fer yfir innskráða notendur og bætir þeim í lista
+      for (let i = 0; i < array.length; i++) {
+        let item = document.createElement('li');
+        item.innerHTML = array[i];
+        users.append(item);
+      }
+    })
+
+    // ================== ÞEGAR NOTANDI ER AÐ SKRIFA ========================
+    socket.on('typing', (array) => {
+
+      // ef það er eitthver inní typing array
+      if (array.length > 0) {
+
+        // is og are breyting  
+        if (array.length < 2) {
+          isTyping.innerHTML = `${array} is typing...`;
+        } else {
+          isTyping.innerHTML = `${array} are typing...`;
+        }
+
+        // annars typing tómt
+      } else {
+        isTyping.innerHTML = '';
+      }
+    });
+
+
+
+
+
+  </script>
+</body>
+
+</html>
