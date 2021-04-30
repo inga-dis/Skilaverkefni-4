@@ -44,6 +44,14 @@
     const swearWords = ['fokk', 'shit', 'fuck', 'fucking', 'shitting', 'fokking', 'helvítis', 'djöfulsins', 'helvitis', 'andskotans', 'fjandans', 'djöfull', 'djofull', 'djofulsins', 'fu', 'stfu', 'fck', 'fk'];
     let userName;
 
+    //vantar tíma á client side
+    function time() {
+      let date = new Date();
+      let minutes = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
+      let hours = (date.getHours() < 10 ? '0' : '') + date.getHours();
+      return `[${hours}:${minutes}]`
+    }
+
     function swearFilter(msg) {
       let arrayMsg = msg.split(' ');
       for (let i = 0; i < arrayMsg.length; i++) {
@@ -64,6 +72,10 @@
     // ================== EMOJI ==================================
     emoji.addEventListener('click', () => {
       socket.emit('chat message', '&#128512');
+      let item = document.createElement('li');
+      item.innerHTML = `${time()} Ég >&#128512`;
+      messages.appendChild(item);
+      window.scrollTo(0, document.body.scrollHeight);
     })
 
     // ======================== MESSAGE SENDING ============================
@@ -71,6 +83,11 @@
       e.preventDefault();
       if (input.value) {
         socket.emit('chat message', input.value);
+        let message = swearFilter(input.value);
+        let item = document.createElement('li');
+        item.innerHTML = `${time()} Ég >${message}`;
+        messages.appendChild(item);
+        window.scrollTo(0, document.body.scrollHeight);
         input.value = '';
       }
     });
